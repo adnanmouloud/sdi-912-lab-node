@@ -16,6 +16,7 @@ app.set('port', 8081);
 //Rutas/controladores por lógica
 require("./routes/rusuarios")(app, swig);
 require("./routes/rcanciones")(app, swig);
+require("./routes/rautores")(app, swig);
 
 //lanzar el servidor
 app.listen(app.get('port'), function () {
