@@ -1,17 +1,35 @@
 module.exports = {
-    mongo : null,
-    app : null,
-    init : function(app, mongo) {
+    mongo: null,
+    app: null,
+    init: function (app, mongo) {
         this.mongo = mongo;
         this.app = app;
     },
-    insertarCancion : function(cancion, funcionCallback) {
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+    obtenerCanciones: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('canciones');
-                collection.insert(cancion, function(err, result) {
+                collection.find(criterio).toArray(function (err, canciones) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(canciones);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+    insertarCancion: function (cancion, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('canciones');
+                collection.insert(cancion, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
