@@ -114,6 +114,8 @@ require("./routes/rusuarios")(app, swig, gestorBD);
 require("./routes/rcanciones")(app, swig, gestorBD);
 require("./routes/rautores")(app, swig, gestorBD);
 require("./routes/rcomentarios")(app, swig, gestorBD);
+require("./routes/rapicanciones.js")(app, gestorBD);
+
 
 app.get('/', function (req, res) {
     res.redirect('/tienda');
